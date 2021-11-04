@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DireccionViewDlg" widgetVar="DireccionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewDireccionTitle}">
+            <h:form id="DireccionViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{direccionController.selected != null}">
+                        <h:outputText value="ID"/>
+                        <h:outputText value="#{direccionController.selected.dirId}" title="#{bundle.ViewDireccionTitle_dirId}"/>
+                        <h:outputText value="NOMBRE RESIDENCIA"/>
+                        <h:outputText value="#{direccionController.selected.dirNombreResidencia}" title="#{bundle.ViewDireccionTitle_dirNombreResidencia}"/>
+                        <h:outputText value="NUMERO CASA"/>
+                        <h:outputText value="#{direccionController.selected.dirNumeroCasa}" title="#{bundle.ViewDireccionTitle_dirNumeroCasa}"/>
+                        <h:outputText value="BLOQUE"/>
+                        <h:outputText value="#{direccionController.selected.dirNumeroBloque}" title="#{bundle.ViewDireccionTitle_dirNumeroBloque}"/>
+                        <h:outputText value="NUMERO PASAJE"/>
+                        <h:outputText value="#{direccionController.selected.dirPasaje}" title="#{bundle.ViewDireccionTitle_dirPasaje}"/>
+                        <h:outputText value="NOMBRE CALLE"/>
+                        <h:outputText value="#{direccionController.selected.dirNombreCalle}" title="#{bundle.ViewDireccionTitle_dirNombreCalle}"/>
+                        <h:outputText value="ID MUNICIPIO"/>
+                        <h:outputText value="#{direccionController.selected.munId}" title="#{bundle.ViewDireccionTitle_munId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="DireccionViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

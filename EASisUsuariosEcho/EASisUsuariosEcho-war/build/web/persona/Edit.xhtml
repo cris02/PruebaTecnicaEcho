@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PersonaEditDlg" widgetVar="PersonaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPersonaTitle}">
+            <h:form id="PersonaEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{personaController.selected != null}">
+                        <p:outputLabel value="NOMBRES" for="pesNombres" />
+                        <p:inputText id="pesNombres" value="#{personaController.selected.pesNombres}" title="#{bundle.EditPersonaTitle_pesNombres}" required="true" requiredMessage="Ingrese el nombre de la persona"/>
+                        <p:outputLabel value="APELLIDOS" for="pesApellidos" />
+                        <p:inputText id="pesApellidos" value="#{personaController.selected.pesApellidos}" title="#{bundle.EditPersonaTitle_pesApellidos}" required="true" requiredMessage="Ingrese los apellidos"/>
+                        <p:outputLabel value="CORREO" for="pesCorreo" />
+                        <p:inputText id="pesCorreo" value="#{personaController.selected.pesCorreo}" title="#{bundle.EditPersonaTitle_pesCorreo}" required="true" requiredMessage="Ingrese el correo electronico"/>
+                        <p:outputLabel value="TELEFONO" for="pesTelefono" />
+                        <p:inputText id="pesTelefono" value="#{personaController.selected.pesTelefono}" title="#{bundle.EditPersonaTitle_pesTelefono}" />
+                        <p:outputLabel value="ID DIRECCION" for="dirId" />
+                        <p:selectOneMenu id="dirId" value="#{personaController.selected.dirId}" required="true" requiredMessage="#{bundle.EditPersonaRequiredMessage_dirId}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{direccionController.itemsAvailableSelectOne}"
+                                           var="dirIdItem"
+                                           itemValue="#{dirIdItem}" itemLabel="#{dirIdItem.dirNombreResidencia}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{personaController.update}" value="#{bundle.Save}" update="display,:PersonaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PersonaEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PersonaEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuarioEditDlg" widgetVar="UsuarioEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditUsuarioTitle}">
+            <h:form id="UsuarioEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}">
+                        <p:outputLabel value="NOMBRE" for="usuUser" />
+                        <p:inputText id="usuUser" value="#{usuarioController.selected.usuUser}" title="NOMBRE" required="true" requiredMessage="Ingrese el nombre del usuario"/>
+                        <p:outputLabel value="PASSWORD" for="usuPass" />
+                        <p:inputText id="usuPass" value="#{usuarioController.selected.usuPass}" title="PASSWORD" required="true" requiredMessage="Ingrese la contraseña del usuario"/>
+                        <p:outputLabel value="FECHA CREACION" for="usuFechaCreacion" />
+                        <p:calendar id="usuFechaCreacion" pattern="MM/dd/yyyy" value="#{usuarioController.selected.usuFechaCreacion}" title="FECHA CREACION"  showOn="button"/>
+                        <p:outputLabel value="FECHA MODIFICACION" for="usuFechaModificacion" />
+                        <p:calendar id="usuFechaModificacion" pattern="MM/dd/yyyy" value="#{usuarioController.selected.usuFechaModificacion}" title="FECHA MODIFICACION"  showOn="button"/>
+                        <p:outputLabel value="USUARIO ACTIVO" for="usuEstado" />
+                        <p:selectBooleanCheckbox id="usuEstado" value="#{usuarioController.selected.usuEstado}" required="true" requiredMessage="Ingrese el estado del usuario"/>
+                        <p:outputLabel value="DESCRIPCION" for="usuDescripcion" />
+                        <p:inputText id="usuDescripcion" value="#{usuarioController.selected.usuDescripcion}" title="DESCRIPCION" />
+                        <p:outputLabel value="ID PERFIL" for="pefId" />
+                        <p:selectOneMenu id="pefId" value="#{usuarioController.selected.pefId}" required="true" requiredMessage="Ingrese el perfil del usuario">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{perfilController.itemsAvailableSelectOne}"
+                                           var="pefIdItem"
+                                            itemValue="#{pefIdItem}" itemLabel="#{pefIdItem.pefId}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="ID PERSONA" for="pesId" />
+                        <p:selectOneMenu id="pesId" value="#{usuarioController.selected.pesId}" required="true" requiredMessage="Ingrese el id de la persona">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{personaController.itemsAvailableSelectOne}"
+                                           var="pesIdItem"
+                                           itemValue="#{pesIdItem}" itemLabel="#{pesIdItem.pesId}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{usuarioController.update}" value="#{bundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UsuarioEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
